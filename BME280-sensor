@@ -1,4 +1,6 @@
-//BME280: temperature,humidity,pressure, altitude sensor - Arduino code
+//  BME280: temperature,humidity,pressure, altitude sensor - Arduino code
+//  We  make our measurements (temperature,humidity,pressure, altitude) with our BME280 sensor
+//  and send the measurements through WiFi to our Blynk app installed on our phone
 
 #include <WiFi.h>
 #include <WiFiClient.h>
@@ -13,17 +15,21 @@ float temperature,humidity,pressure, altitude;
 
 #define SEALEVELPRESSURE_HPA (1005)
 
-Adafruit_BME280 bme;
+Adafruit_BME280 bme;  
 
 void setup() {
   Serial.begin(115200);
   delay(20);
+  
+  // start BME280
   
   bool status = bme.begin(0x76);
   while (!status) {
     Serial.println("Couldn't find BME280 !!!");
     while(1);     
     }
+  
+  // start WiFi connection to send information via internet
   
   Serial.print("Connecting");
   WiFi.begin(ssid,pw);
@@ -34,8 +40,10 @@ void setup() {
   
   Serial.println("\nCONNECTED !");
   
-  Blynk.begin("sy_TOl8lwZbLpRHoUJlr4di0ftuOd4Dw",ssid,pw);
+  Blynk.begin("sy_TOl8lwZbLpRHoUJlr4di0ftuOd4Dw",ssid,pw);   // we will receive information through our Blynk App
 }
+
+// start Blynk connection and send measurements to Blynk
 
 void loop() {
    Blynk.run();
@@ -43,6 +51,9 @@ void loop() {
    humidity = bme.readHumidity();
    altitude = bme.readAltitude(SEALEVELPRESSURE_HPA);
    pressure = bme.readPressure()  / 100.0F;
+   
+   // relay information to Blynk
+   
    Blynk.virtualWrite(V1,temperature);
    delay(500);
    Blynk.virtualWrite(V2,humidity+2);
