@@ -1,0 +1,54 @@
+//BME280: temperature,humidity,pressure, altitude sensor - Arduino code
+
+#include <WiFi.h>
+#include <WiFiClient.h>
+#include <Adafruit_Sensor.h>
+#include <Adafruit_BME280.h>
+#include <BlynkSimpleEsp32.h>
+
+char ssid[] = "Home_WiFi_Name";
+char pw[] = "WiFi_password";
+
+float temperature,humidity,pressure, altitude;
+
+#define SEALEVELPRESSURE_HPA (1005)
+
+Adafruit_BME280 bme;
+
+void setup() {
+  Serial.begin(115200);
+  delay(20);
+  
+  bool status = bme.begin(0x76);
+  while (!status) {
+    Serial.println("Couldn't find BME280 !!!");
+    while(1);     
+    }
+  
+  Serial.print("Connecting");
+  WiFi.begin(ssid,pw);
+  while(WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+  
+  Serial.println("\nCONNECTED !");
+  
+  Blynk.begin("sy_TOl8lwZbLpRHoUJlr4di0ftuOd4Dw",ssid,pw);
+}
+
+void loop() {
+   Blynk.run();
+   temperature = bme.readTemperature();
+   humidity = bme.readHumidity();
+   altitude = bme.readAltitude(SEALEVELPRESSURE_HPA);
+   pressure = bme.readPressure()  / 100.0F;
+   Blynk.virtualWrite(V1,temperature);
+   delay(500);
+   Blynk.virtualWrite(V2,humidity+2);
+   delay(500);
+   Blynk.virtualWrite(V3,altitude);  
+   delay(500);  
+   Blynk.virtualWrite(V4,pressure);
+   delay(10000);
+   }
