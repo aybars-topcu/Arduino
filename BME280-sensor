@@ -8,6 +8,7 @@
 #include <Adafruit_BME280.h>
 #include <BlynkSimpleEsp32.h>
 
+// WiFi comm necessary info
 char ssid[] = "Home_WiFi_Name";
 char pw[] = "WiFi_password";
 
@@ -40,7 +41,8 @@ void setup() {
   
   Serial.println("\nCONNECTED !");
   
-  Blynk.begin("sy_TOl8lwZbLpRHoUJlr4di0ftuOd4Dw",ssid,pw);   // we will receive information through our Blynk App
+// we need a Blynk key to start Blyn comm. After that we will receive sensor output through our Blynk app on our phone  
+  Blynk.begin("sy_TOl8lwZbLpRHoUJlr4di0ftuOd4Dw",ssid,pw);  
 }
 
 // start Blynk connection and send measurements to Blynk
