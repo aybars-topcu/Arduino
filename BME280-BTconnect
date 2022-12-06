@@ -6,6 +6,7 @@
 #include <Adafruit_BME280.h>
 #include <BluetoothSerial.h>
 
+// check HC05 - BT connection
 #if !defined(CONFIG_BT_ENABLED) || !defined(CONFIG_BLUEDROID_ENABLED)
 #error Bluetooth is not enabled!!!
 #endif
