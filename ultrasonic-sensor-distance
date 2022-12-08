@@ -1,0 +1,34 @@
+// Arduino Ultrasoninc Sensor HC-SR04
+// just like the buzzer on your car which warns you when you are 
+// too close to an object while parking
+
+int trig=3;
+int echo=5;
+int piezo=10;
+long duration;
+int distance;
+
+void setup() {
+  pinMode(trig,OUTPUT);  //set sensor trig pin - output(emit signal)
+  pinMode(echo,INPUT);   // set sensor echo pin - input(listen)
+  pinMode(piezo,OUTPUT); // piezo buzzer pin - alarm when too close
+  Serial.begin(9600);
+}
+
+void loop() {
+  digitalWrite(trig,LOW); //clear the pin
+  delayMicroseconds(2);
+  digitalWrite(trig,HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trig,LOW);
+  duration=pulseIn(echo,HIGH); //read echo pin and return travel time
+  distance=duration*0.034/2;
+  Serial.println("Distance: ");
+  Serial.println(distance);
+  if(distance<10) {     //if there is a close object sound alarm
+    tone(piezo,800,400);
+    delay(400);
+    tone(piezo,1200,400);   
+  }
+  delay(1000);
+}
