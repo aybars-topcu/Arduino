@@ -1,4 +1,11 @@
-// comments
+// we will play a game :)
+// we need an RGB LED and a motion PIR sensor
+// our code turns the led to green when PIR sensor is turned off. You can move.
+// When the LED light goes off you should stop. it is forbidden to move.
+// If you move out of sync with green light (move when there is no light)
+// any movement is detected and.... you will be shot to death :) well in fact
+// the buzzer sounds the alarm which indicates that you are caught
+ 
 
 int redLed=7;
 int greenLed=6;
