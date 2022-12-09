@@ -1,0 +1,36 @@
+// now we're going to build the most sophisticated alarm system in the world:)
+
+
+// connection points (pin) setup -----
+
+int ledPin=7;
+int pirPin=2;
+int piezo=4;
+int pirVal=0;
+
+void setup() {
+  pinMode(ledPin,OUTPUT);
+  pinMode(pirPin,INPUT);
+  pinMode(piezo,OUTPUT);
+  Serial.begin(9600);
+}
+
+
+// action !!!! -------------------
+
+void loop() {
+  pirVal=digitalRead(pirPin);
+  Serial.println(pirVal);
+  if (pirVal==HIGH) {     // if any nearby motion is detected 
+        digitalWrite(ledPin,HIGH);  // alarm LED will make you blind
+        tone(piezo,800,800);  // alarm sirens will make you deaf
+        delay(1000);   // a short pause (1000 milliseconds = 1 second) 
+        digitalWrite(ledPin,LOW); // turn off LED
+    
+    Serial.println("Motion detected !!!");
+    }
+   else {
+    digitalWrite(ledPin,LOW);
+  }
+  delay(2000); // 2 seconds pause till the next PIR scanning
+}
