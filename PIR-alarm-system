@@ -1,4 +1,8 @@
 // now we're going to build the most sophisticated alarm system in the world:)
+// our PIR sensor acts like a sonar, alternating between active and passive status.
+// At every 2 seconds it checks if there is any movement nearby. If any motion
+// gets detected the LED light is turned on and buzzer sounds the alarm, which
+// makes you blind and deaf respectively :))
 
 
 // connection points (pin) setup -----
