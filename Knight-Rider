@@ -1,6 +1,11 @@
 // Knight Rider :)
+// if you know what it was then you're feeling the melancholy of nostalgia right now
+// we have multiple LEDs lined up straight. Our code makes them turn on and off sequentially
+// along the line. When the light travels from end-to-end it returns back to the other side.
+// Going back and forth in an infinite loop
 
-int leds[] = {2,3,4,5,6};
+
+int leds[] = {2,3,4,5,6};  // our led comm PINs on arduino
 
 void setup()
 {
@@ -11,12 +16,12 @@ void setup()
 
 void loop()
 {
-  for(int i=0;i<5;i++) {
-    digitalWrite(leds[i],HIGH);
-    delay(80);
-    digitalWrite(leds[i],LOW);
+  for(int i=0;i<5;i++) {    //lights traveling from side a to b
+    digitalWrite(leds[i],HIGH); //turning on
+    delay(80);   // light-on for 80 milliseconds
+    digitalWrite(leds[i],LOW); //light turned_off
    }
-  for(int j=4;j>-1;j--) {
+  for(int j=4;j>-1;j--) {    //now the llights will travel back to the other side
   digitalWrite(leds[j],HIGH);
   delay(80);
   digitalWrite(leds[j],LOW);
